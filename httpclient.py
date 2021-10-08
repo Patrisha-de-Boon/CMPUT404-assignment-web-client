@@ -60,10 +60,8 @@ class Request():
 
         self.headers["User-Agent"] = "HttpClient/1.0"
         self.headers["Accept"] = "*/*"
-
-        if (not "Connection" in self.headers):
-            self.headers["Connection"] = "close"
-
+        self.headers["Connection"] = "close"
+        
         for name, value in self.headers.items():
             strRequest += name + ": " + (str(value)) + "\r\n"
 
@@ -103,17 +101,32 @@ class HTTPClient(object):
             return False
 
     def get_code(self, data):
-        regResponse = re.search('^[^ ]* (\d+) ', data)
+        regResponse = re.search(r'^[^ ]* (\d+) ', data)
         if (regResponse):
             return int(regResponse.group(1))
 
         return None
 
     def get_body(self, data):
-        regResponse = re.search('\r\n\r\n((.|\n|\r|\f)*)', data)
-        if (regResponse):
-            return unquote(regResponse.group(1))
+        length = self.get_length(data)
+        if length:
+            bodyStart = data.find("\r\n\r\n") + 4
+            if bodyStart - 4 > -1:
+                return data[bodyStart: min(len(data), bodyStart + length)]
+        else:
+            regResponse = re.search('\r\n\r\n((.|\n|\r|\f)*)', data)
+            if (regResponse):
+                return regResponse.group(1)
+
+        return None
     
+    def get_length(self, data):
+        regResponse = re.search('\r\nContent-Length:(.*)\r\n', data)
+        if (regResponse):
+            lengthStr = regResponse.group(1).strip()
+            return int(lengthStr)
+        return None
+
     def sendall(self, data):
         self.socket.sendall(data.encode('utf-8'))
         
@@ -144,7 +157,7 @@ class HTTPClient(object):
                     if (urlComponents.port and urlComponents.port != 80):
                         self.request.headers["Host"] = urlComponents.hostname + ":" + str(urlComponents.port)
                     else:
-                        self.request.headers["Host"] = urlComponents.hostname
+                        self.request.headers["Host"] = urlComponents.hostname + ":80"
                     self.request.uri = urlComponents.path if urlComponents.path else "/"
                     if (urlComponents.query):
                         for query in urlComponents.query.split("&"):

@@ -18,6 +18,12 @@ examples thus some of the code is Copyright © 2001-2013 Python
 Software Foundation; All Rights Reserved under the PSF license (GPL
 compatible) http://docs.python.org/2/library/socketserver.html
 
-Similarily, example code from https://docs.python.org/3/library/re.html was used to parse responses, and examples from from https://docs.python.org/3/library/urllib.parse.html were used to encode strings. 
+Similarily, example code from https://docs.python.org/3/library/re.html 
+was used to parse responses, and examples from 
+https://docs.python.org/3/library/urllib.parse.html were used to encode 
+strings. In addition, code from Lab 2 for this class was referenced for 
+socket handling.
 
-httpclient.py was also made with extensive use of documentation from https://developer.mozilla.org/en-US/docs/Web/HTTP as a reference for formatting and parsing data.
+httpclient.py was also made with extensive use of documentation from 
+https://developer.mozilla.org/en-US/docs/Web/HTTP as a reference for 
+formatting and parsing data.
