@@ -11,10 +11,13 @@ Contributors / Licensing
 ========================
 
 Generally everything is LICENSE'D under the Apache 2 license by Abram Hindle, 
-https://github.com/tywtyw2002, and https://github.com/treedust
+https://github.com/tywtyw2002, and https://github.com/treedust, and Patrisha de Boon
 
-But the server.py example is derived from the python documentation
+But the httpclient.py example is derived from the python documentation
 examples thus some of the code is Copyright © 2001-2013 Python
 Software Foundation; All Rights Reserved under the PSF license (GPL
 compatible) http://docs.python.org/2/library/socketserver.html
 
+Similarily, example code from https://docs.python.org/3/library/re.html was used to parse responses, and examples from from https://docs.python.org/3/library/urllib.parse.html were used to encode strings. 
+
+httpclient.py was also made with extensive use of documentation from https://developer.mozilla.org/en-US/docs/Web/HTTP as a reference for formatting and parsing data.
